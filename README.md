@@ -16,6 +16,7 @@
 - 📦 **Multiple Storage Options**: Base64, Local, S3, Cloudflare R2, Min IO, Telegram CDN etc.
 - 🔍 **OCR Support**: Extract Text from Image (Require Paddle OCR API)
 - 🔊 **Audio Support**: Convert Audio to Text (Require Azure Speech to Text Service)
+- 📄 **MarkItDown Support**: Advanced document parsing using Microsoft's MarkItDown library
 
 ## Supported File Types
 - Text
@@ -190,6 +191,27 @@ Response
 
 - `OCR_ENDPOINT` Paddle OCR Endpoint
     - *e.g.: *http://example.com:8000*
+
+## `5` 📄 MarkItDown Support
+You can enable MarkItDown for better document parsing by configuring the following environment variables:
+
+```
+MARKITDOWN_ENABLE=true                 # Enable MarkItDown
+MARKITDOWN_ENABLE_PLUGINS=false        # Whether to enable plugins
+MARKITDOWN_USE_DOCINTEL=false          # Whether to use Document Intelligence
+MARKITDOWN_DOCINTEL_ENDPOINT=          # Document Intelligence endpoint
+MARKITDOWN_DOCINTEL_KEY=               # Document Intelligence API key
+MARKITDOWN_USE_LLM=false               # Whether to use LLM for image descriptions
+MARKITDOWN_LLM_MODEL=gpt-4o            # LLM model for image descriptions
+MARKITDOWN_LLM_ENDPOINT=               # Custom OpenAI API endpoint (optional)
+MARKITDOWN_LLM_API_KEY=                # Custom OpenAI API key (optional)
+```
+
+When MarkItDown is enabled, it will be used as the primary processor for supported file types, falling back to the built-in processors if any error occurs.
+
+You can use custom OpenAI API endpoints by setting `MARKITDOWN_LLM_ENDPOINT` to your proxy or mirror site URL (e.g., `https://your-proxy.com/v1`). This is useful if you need to access OpenAI services through a proxy or alternative service provider.
+
+For Azure Document Intelligence, you can provide both the endpoint and API key instead of using DefaultAzureCredential, which provides better security by limiting the permissions of the authentication method.
 
 ## Common Errors
 - *Cannot Use `Save All` Options Without Storage Config*:

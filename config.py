@@ -150,6 +150,9 @@ def init_config():
     global TG_ENDPOINT, TG_PASSWORD, TG_API
     global OCR_ENDPOINT, OCR_SKIP_MODELS, OCR_SPEC_MODELS
     global LOG_LEVEL
+    global MARKITDOWN_ENABLE, MARKITDOWN_ENABLE_PLUGINS, MARKITDOWN_USE_DOCINTEL
+    global MARKITDOWN_DOCINTEL_ENDPOINT, MARKITDOWN_DOCINTEL_KEY, MARKITDOWN_USE_LLM, MARKITDOWN_LLM_MODEL
+    global MARKITDOWN_LLM_ENDPOINT, MARKITDOWN_LLM_API_KEY
 
     # General Config
     CORS_ALLOW_ORIGINS = to_list("CORS_ALLOW_ORIGINS", ["*"])  # CORS Allow Origins
@@ -179,6 +182,17 @@ def init_config():
     OCR_ENDPOINT = to_endpoint("OCR_ENDPOINT", "")  # OCR Endpoint
     OCR_SKIP_MODELS = to_list("OCR_SKIP_MODELS", [])  # OCR Skip Models
     OCR_SPEC_MODELS = to_list("OCR_SPEC_MODELS", [])  # OCR Specific Models
+
+    # MarkItDown Config
+    MARKITDOWN_ENABLE = to_bool("MARKITDOWN_ENABLE", False)  # Enable MarkItDown
+    MARKITDOWN_ENABLE_PLUGINS = to_bool("MARKITDOWN_ENABLE_PLUGINS", False)  # Enable MarkItDown Plugins
+    MARKITDOWN_USE_DOCINTEL = to_bool("MARKITDOWN_USE_DOCINTEL", False)  # Use Document Intelligence
+    MARKITDOWN_DOCINTEL_ENDPOINT = to_str("MARKITDOWN_DOCINTEL_ENDPOINT", "")  # Document Intelligence Endpoint
+    MARKITDOWN_DOCINTEL_KEY = to_str("MARKITDOWN_DOCINTEL_KEY", "")  # Document Intelligence API Key
+    MARKITDOWN_USE_LLM = to_bool("MARKITDOWN_USE_LLM", False)  # Use LLM for image descriptions
+    MARKITDOWN_LLM_MODEL = to_str("MARKITDOWN_LLM_MODEL", "gpt-4o")  # LLM Model for image descriptions
+    MARKITDOWN_LLM_ENDPOINT = to_str("MARKITDOWN_LLM_ENDPOINT", "")  # LLM Endpoint
+    MARKITDOWN_LLM_API_KEY = to_str("MARKITDOWN_LLM_API_KEY", "")  # LLM API Key
 
     LOG_LEVEL = to_str("LOG_LEVEL", "INFO").upper()  # log level
 

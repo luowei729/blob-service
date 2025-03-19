@@ -1,6 +1,6 @@
 from fastapi import UploadFile, File
 
-from config import ENABLE_AZURE_SPEECH, MAX_FILE_SIZE
+from config import ENABLE_AZURE_SPEECH, MAX_FILE_SIZE, MARKITDOWN_ENABLE
 from handlers import (
     pdf,
     word,
@@ -8,6 +8,7 @@ from handlers import (
     xlsx,
     image,
     speech,
+    markitdown,
 )
 from store.store import process_all
 from utils import logger
@@ -48,6 +49,16 @@ async def process_file(
         # save all types of files to storage
         logger.info(f"Save all types of files: {filename}")
         return "file", await process_all(file)
+
+    # markitdown is enabled and the current file type is supported
+    if MARKITDOWN_ENABLE and markitdown.is_supported(filename):
+        logger.info(f"Processing file with MarkItDown: {filename}")
+        try:
+            return "markitdown", await markitdown.process(file)
+        except Exception as e:
+            logger.error(f"Error processing file with MarkItDown: {str(e)}")
+            logger.info(f"Falling back to default file processing")
+            # downgrade to default file processing if markitdown processing failed
 
     if pdf.is_pdf(filename):
         logger.info(f"Processing PDF file: {filename}")

@@ -26,7 +26,7 @@ if __name__ == "__main__":
     log_level = getattr(logging, log_level_name)
     
     logger = setup_logger("blob-service", log_level)
-    logger.info(f"CoAI Blob Service Start with log level: {log_level_name}")
+    logger.info(f"CoAI Blob Service - Start with log level: {log_level_name}")
     
     log_config = uvicorn.config.LOGGING_CONFIG
     log_config["formatters"]["access"]["fmt"] = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
