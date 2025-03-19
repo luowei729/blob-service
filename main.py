@@ -9,7 +9,9 @@ from utils import logger, setup_logger
 import logging
 import time
 
-logger = setup_logger(level=logging.DEBUG)
+log_level = getattr(logging, LOG_LEVEL, logging.INFO)
+logger = setup_logger(level=log_level)
+logger.info(f"Initializing app with log level: {LOG_LEVEL}")
 
 app = FastAPI()
 

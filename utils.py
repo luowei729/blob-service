@@ -3,6 +3,7 @@ from typing import List
 import logging
 import sys
 from typing import Optional
+import os
 
 def sha2_file(filename) -> str:
     """Returns hash of file."""
@@ -43,7 +44,11 @@ def setup_logger(name: str = "blob-service", level: Optional[int] = None) -> log
         The configured logger instance
     """
     if level is None:
-        level = logging.INFO
+        log_level_str = os.environ.get("LOG_LEVEL", "INFO").upper()
+        try:
+            level = getattr(logging, log_level_str)
+        except AttributeError:
+            level = logging.INFO
 
     logger = logging.getLogger(name)
     if not logger.handlers:
